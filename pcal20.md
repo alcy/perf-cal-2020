@@ -40,21 +40,48 @@ Performance data was collected using combinations of these FOSS tools:
   * jmxterm
   * VisualVM
   * Java Mission Control Datadog dd-agent
-  * Datadog — also integrates with AWS CloudWatch metrics Collectd — Linux performance data collection
-  * Graphite and statsd — application metrics collection & storage Grafana — time-series data plotting
+  * Datadog — also integrates with AWS CloudWatch metrics 
+  * Collectd — Linux performance data collection
+  * Graphite and statsd — application metrics collection & storage 
+  * Grafana — time-series data plotting
   * Custom data collection scripts
-  * R statistical libs and RStudio IDE
-  * PDQ performance modeling tool 
+  * R statistical libraries and the RStudio IDE
+  * PDQ queueing analyzer tool 
+
+More details about the data collection procedures can be found in References 1 and 2 below. 
 
 
+
+### Throughput profile
+
+First, let's consider the application throughput profile shown in Figure 1. 
+The most important thing to note about this plot of throughput is that it is **not** a time 
+series&mdash;that every performance monitoring tool spits out. 
+
+As general matter, time are rather useless for doing deeper performance analysis. 
+Just because a monitoring tool produces time-series plots, doesn't make them particularly useful. 
+It's just an obvious and straightforward thing for them to do. 
+
+Instead, Figure 1 shows the steady-state view of the throughput, X(N), as a nonlinear function of 
+the mobile user request load, N. In other words, N is the independent variable and X(N) is the 
+dependent variable. All steady-state throughput profiles are *concave* functions. 
 
 ![Figure 1](fig1.png)  
-<figcaption><b>Figure 1: Throughput profile of Tomcat application  on AWS</b></figcaption>
+<figcaption><b>Figure 1: Throughput profile of Tomcat application on AWS</b></figcaption>
 
 
+
+
+### Latency profile
+
+Next, let's look at the corresponding response time profile. 
 
 ![](fig2.png) 
 <figcaption><b>Figure 2: Latency profile of Tomcat application  on AWS</b></figcaption>
+
+Figure 2 shows the steady-state view of the response time, R(N), as a nonlinear function of 
+the mobile user request load, N. Here, R(N) is the 
+dependent variable. All steady-state response time profiles are *convex* functions. 
 
 
   * AWS tomcat application
