@@ -70,6 +70,7 @@ Since each user-request is assigned to a Tomcat thread, we can label N as "users
 ![Figure 1](fig1.png)  
 <figcaption><b>Figure 1: Throughput profile of Tomcat application on AWS</b></figcaption>
 
+
 The dots are the measured throughput at a given load. Each dot corresponds to a particular 
 timestamp when the data was sampled but, that information has becomes *implicit* rather than 
 explicit in Figure 1. 
@@ -84,10 +85,66 @@ two line segments:
   1. the horizontal red dashed line (beyond N = 300)
 
 The knee in the data is indicated by the blue arrow. 
-The red dashed line have a particular meaning in queueing theory (you do know you're queuing theory 
-don't you?)
 
+The red lines represent the *statistical mean* of the measured data&mdash;in the sense 
+of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
+(or "noise") about the mean. 
 
+Moreover, these red dashed line have a particular meaning in queueing theory&mdash;you do know you're queuing theory 
+don't you? (see Ref. 4) 
+The diagonal line represents the ideal **parallel** performance bound. In other words, you cannot 
+have a throughput better than that as you increase the request load; on average. 
+Similarly, the horizontal line represents the ideal **saturation** performance bound. 
+You cannot have a throughput that exceeds that bound; on average. 
+As the data shows, you can have *instantaneous* values that exceed these bounds but 
+they only transient. 
+
+In case you're wondering, yes, Figure 1 only shows measurements from one EC2 instance. 
+For the standpoint of PDQ, that's the correct approach. All the instances are supposed to scale 
+identically. That's the job of the ECB load balancer and that's the assumption of PDQ. 
+If instances are not scaling identically, that's not the fault of queueing theory, that's the 
+fault of the load balancer configuration of some other effect in the infrastructure.  
+
+```R
+library(pdq)
+
+# Globals
+requests <- seq(50, 500, 50) # from mobile users
+threads  <- 300   # max threads under AWS auto scale policy
+stime    <- 0.444 # measured service time in seconds
+xx       <- NULL  # x-axis load points 
+yx       <- NULL  # corresponding throughput 
+```
+
+```R
+# PDQ model
+aws.model <- function(nindex) {
+  pdq::Init("")  
+  pdq::CreateClosed("Requests", BATCH, requests[nindex], 0.0)
+  pdq::CreateMultiNode(threads, "Threads", MSC, FCFS) 
+  pdq::SetDemand("Threads", "Requests", stime) 
+  pdq::SetWUnit("Reqs")
+  pdq::Solve(EXACT)
+  xx[nindex] <<- requests[nindex] # update global vector
+  yx[nindex] <<- pdq::GetThruput(BATCH, "Requests")
+}
+```
+
+```R
+# Loop over mobile requests
+for (i in 1:length(requests)) {
+  aws.model(i)
+}
+```
+
+```R
+# Plot throughput X(N)
+plot(xx, yx, 
+     type="p", col="blue", pch=0, 
+     xlim=c(0,500), ylim=c(0,800), 
+     xlab="Threads, N", ylab="Request rate, X(N)"
+)
+```
 
 ### Latency profile
 
@@ -139,7 +196,7 @@ So, what is it all about? It's about cost or, more formally, capacity planning.
   1. [How to Scale in the Cloud: Chargeback is Back, Baby!](https://speakerdeck.com/drqz/how-to-scale-in-the-cloud-chargeback-is-back-baby) (2019 Rocky Mountain CMG slides)
   1. [PDQ: Pretty Damn Quick Performance Analyzer](http://www.perfdynamics.com/Tools/PDQ.html)
   1. [PDQ Software Distribution version 7.0](http://www.perfdynamics.com/Tools/PDQcode.html)
-  1. [PDQW: Pretty Damn Quick Workshop](http://www.perfdynamics.com/Classes/Outlines/pdqw.html)
+  1. [PDQW Tutorial Workshop](http://www.perfdynamics.com/Classes/Outlines/pdqw.html)
 
 
 
