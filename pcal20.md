@@ -15,14 +15,13 @@ The context is a mobile application running on top of a Tomcat thread-server tha
 communicates with other third-party web services, e.g., hotel and car rental reservation systems. 
 The AWS configuration can be summarized as:
 
-	* Elastic load balancer (ELB)
-	* AWS Elastic Cluster (EC2) instance type `m4.10xlarge` with 20 CPUs or 40 VPUs 
-	* Auto Scaling group (A/S)
-	* Mobile users make requests to Apache HTTP server (versions 2.2 and 2.4) via ELB on EC2
-	* Tomcat thread server (versions 7 and 8) on EC2 makes calls to 3rd-party web services
-	* A/S controls the number of active EC2 instances based on incoming ELB traffic and 
-	configured A/S policies
-	* ELB balances incoming traffic across all active EC2 nodes in the AWS cluster
+  * Elastic load balancer (ELB)
+  * AWS Elastic Cluster (EC2) instance type `m4.10xlarge` with 20 CPUs or 40 VPUs 
+  * Auto Scaling group (A/S)
+  * Mobile users make requests to Apache HTTP server (versions 2.2 and 2.4) via ELB on EC2
+  * Tomcat thread server (versions 7 and 8) on EC2 makes calls to 3rd-party web services
+  * A/S controls the number of active EC2 instances based on incoming ELB traffic and configured A/S policies
+  * ELB balances incoming traffic across all active EC2 nodes in the AWS cluster
 
 
 
