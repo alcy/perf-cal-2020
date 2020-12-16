@@ -91,8 +91,8 @@ The red lines represent the *statistical mean* of the measured data&mdash;in the
 of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
 (or "noise") about the mean. 
 
-Moreover, these red dashed line have a particular meaning in queueing theory&mdash;you do know you're queuing theory 
-don't you? (elsewise, see Ref. 4) 
+Moreover, these red dashed line have a particular meaning in queueing theory&mdash;you do 
+know you're queuing theory don't you? (elsewise, see Ref. 4) 
 The diagonal line represents the ideal **parallel** performance bound. In other words, you cannot 
 have a throughput better than that as you increase the request load; on average. 
 Similarly, the horizontal line represents the ideal **saturation** performance bound. 
@@ -111,13 +111,16 @@ fault of the load balancer configuration of some other effect in the infrastruct
 
 ### PDQ Model
 
+The white squares in Figure 1 (i.e., the calculated throughput X(N)) 
+come from the queueing model shown in Figure 2. 
+.... TBC
 
 ![](fig2.png) 
 <figcaption><b>Figure 2: PQQ queueing model of AWS-Tomcat</b><p></figcaption>
 
 
-The following PDQ model, written in the R language, can be used to calculate the 
-throughput points X(N) in Figure 1. First, we define some global vectors for the PDQ model. 
+Figure 2 can be expressed in PDQ using the R language, as follows. 
+First, we define some global vectors for the PDQ model. 
 
 ```R
 requests <- seq(50, 500, 50) # from mobile users
@@ -153,7 +156,7 @@ for (i in 1:length(requests)) {
 }
 ```
 
-Finally, we plot the throughput values, X(N), which correspond to the white squares in Figure 1.
+Finally, we plot the throughput values, X(N), i.e., the white squares in Figure 1.
 ```R
 plot(xx, yx, type="p", pch=0, 
      xlim=c(0,500), ylim=c(0,800), 
@@ -162,7 +165,7 @@ plot(xx, yx, type="p", pch=0,
 ```
 
 That's all it takes. A slight variation in the PDQ code can be used to calculate the 
-corresponding response times in Figure 2.
+corresponding response times in Figure 3.
 
 The point of constructing the PDQ model is to see 
 
@@ -186,7 +189,7 @@ inverse function of the throughput: a convex function.
 ![](fig3.png) 
 <figcaption><b>Figure 3: Latency profile of Tomcat application  on AWS</b><p></figcaption>
 
-Figure 2 shows the steady-state view of the response time, R(N), as a nonlinear function of 
+Figure 3 shows the steady-state view of the response time, R(N), as a nonlinear function of 
 the mobile user request load, N. Here, R(N) is the 
 dependent variable. All steady-state response time profiles are *convex* functions. 
 
@@ -198,8 +201,8 @@ profile. In terms of queueing, there isn't any.
 Conversely, the horizontal saturation limit in Figure 1, means the system can't do any more 
 work than it was doing at N = 300 threads. Any additional threads do not contribute to the 
 throughput. On the other hand, the additional requesting threads do get to wait in queues. 
-Those growing queues are reflected in the increasing diagonal line of Figure 2&mdash;the 
-hockey stick "handle". 
+Those growing queues are reflected in the increasing diagonal line of Figure 3&mdash;the 
+so-called hockey stick "handle". 
 
 
 
