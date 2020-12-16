@@ -111,6 +111,11 @@ fault of the load balancer configuration of some other effect in the infrastruct
 
 ### PDQ Model
 
+
+![](fig2.png) 
+<figcaption><b>Figure 2: PQQ queueing model of AWS-Tomcat</b><p></figcaption>
+
+
 The following PDQ model, written in the R language, can be used to calculate the 
 throughput points X(N) in Figure 1. First, we define some global vectors for the PDQ model. 
 
@@ -157,13 +162,17 @@ plot(xx, yx, type="p", pch=0,
 ```
 
 That's all it takes. A slight variation in the PDQ code can be used to calculate the 
-corresponding responce times in Figure 2.
+corresponding response times in Figure 2.
 
-The point of constructing the PDQ model is to see if there are missed opportunities for performance 
-improvements. The hint is that there does not seem to be much. 
+The point of constructing the PDQ model is to see 
+
+  * how the data compares with the model 
+  * if there are opportunities for performance improvement 
+
+The hint from Figure 1 is that there does not seem to be much. 
 The initial throughput increases linearly with load and runs along the parallel bound. 
 You can't beat that. 
-It might be possible to lift the saturation bound in some way but, I'll come back to that later. 
+It might be possible to lift the saturation bound in some way but, I'll come back to that shorty. 
 The only other improvement might be to reduce the variability in the data. 
 
 
@@ -174,8 +183,8 @@ The only other improvement might be to reduce the variability in the data.
 Next, let's look at the corresponding response time profile. Roughly speaking, it is the 
 inverse function of the throughput: a convex function. 
 
-![](fig2.png) 
-<figcaption><b>Figure 2: Latency profile of Tomcat application  on AWS</b><p></figcaption>
+![](fig3.png) 
+<figcaption><b>Figure 3: Latency profile of Tomcat application  on AWS</b><p></figcaption>
 
 Figure 2 shows the steady-state view of the response time, R(N), as a nonlinear function of 
 the mobile user request load, N. Here, R(N) is the 
