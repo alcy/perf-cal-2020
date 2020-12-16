@@ -114,11 +114,12 @@ fault of the load balancer configuration of some other effect in the infrastruct
 ### PDQ Model
 
 The white squares in Figure 1 (i.e., the calculated throughput X(N)) 
-come from the queueing model shown schematically in Figure 2. 
+come from the queueing representation shown schematically in Figure 2. 
+
 Reading from left to right, the little bubbles in curly braces represent N user-threads and 
 their associated think time, Z. For technical reasons, we set Z = 0 in this Tomcat model. 
-User request flow rightward to a waiting line (the little boxes) labelled, W. 
-There, the requests wait to have their work done the Tomcat active threads, shown in the 
+User requests flow rightward to a waiting line (the little boxes) labelled, W. 
+There, the requests wait to have their work performed by active Tomcat threads, shown in the 
 second set of curly braces. 
 The average service time of an active threads is 444 milliseconds (derived from the collected 
 data on the EC2 instance). 
@@ -127,11 +128,11 @@ More on this, later.
 
 
 ![](fig2.png) 
-<figcaption><b>Figure 2: PQQ queueing model of AWS-Tomcat</b><p></figcaption>
+<figcaption><b>Figure 2: Queueing representation of AWS-Tomcat</b><p></figcaption>
 
 
-Figure 2 can be expressed in PDQ, in the R language, as follows. 
-First, we define some global vectors, such as the number of user requests, the number of 
+Figure 2 can be expressed in PDQ, using the R language, as follows. 
+First, we assign some global vectors, such as the number of user requests, the number of 
 active threads, their service time, and so on. 
 
 ```R
@@ -238,6 +239,12 @@ So, what is it all about? It's about cost or, more formally, capacity planning.
 
   * But minimal ROI for more tuning
   * It's all about CHARGEBACK 
+  
+  
+  
+![](fig4.png) 
+<figcaption><b>Figure 4: AWS capacity lines</b><p></figcaption>
+
 
 I have seen throughput data for a completely different Tomcat application that was not 
 running in any cloud and it did not appear to scale anywhere near as well is Figure 1. 
@@ -254,7 +261,7 @@ Like I said at the beginning of this piece: simple!
   1. [Linux-Tomcat Application Performance on Amazon AWS](https://arxiv.org/abs/1811.12341) (2019 in English)
   1. [How to Scale in the Cloud: Chargeback is Back, Baby!](https://speakerdeck.com/drqz/how-to-scale-in-the-cloud-chargeback-is-back-baby) (2019 Rocky Mountain CMG slides)
   1. [PDQ: Pretty Damn Quick Performance Analyzer](http://www.perfdynamics.com/Tools/PDQ.html)
-  1. [PDQ Software Distribution version 7.0](http://www.perfdynamics.com/Tools/PDQcode.html)
+  1. [PDQ Version 7 Download](http://www.perfdynamics.com/Tools/PDQcode.html)
   1. [PDQW Tutorial Workshop](http://www.perfdynamics.com/Classes/Outlines/pdqw.html)
 
 
