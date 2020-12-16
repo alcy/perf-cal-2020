@@ -61,14 +61,31 @@ series&mdash;that every performance monitoring tool spits out.
 As general matter, time are rather useless for doing deeper performance analysis. 
 Just because a monitoring tool produces time-series plots, doesn't make them particularly useful. 
 It's just an obvious and straightforward thing for them to do. 
-
 Instead, Figure 1 shows the steady-state view of the throughput, X(N), as a nonlinear function of 
 the mobile user request load, N. In other words, N is the independent variable and X(N) is the 
 dependent variable. All steady-state throughput profiles are *concave* functions. 
+Since each user-request is assigned to a Tomcat thread, we can label N as "users" or 
+"requests" or "threads". They're all logically equivalent. 
 
 ![Figure 1](fig1.png)  
 <figcaption><b>Figure 1: Throughput profile of Tomcat application on AWS</b></figcaption>
 
+The dots are the measured throughput at a given load. Each dot corresponds to a particular 
+timestamp when the data was sampled but, that information has becomes *implicit* rather than 
+explicit in Figure 1. 
+The data points range approximately between N = 100 
+user-threads and N = 500 threads. On reflection, it should be clear that the lower values of N 
+correspond to the quiescent period during the 24 hour window and conversely, 
+the higher values of N correspond to the heaviest daily traffic. 
+
+What is not apparent from a simple scatterplot of those data is that they tend to fall along 
+two line segments:
+  1. the diagonal red dashed line (up to N = 300)
+  1. the horizontal red dashed line (beyond N = 300)
+
+The knee in the data is indicated by the blue arrow. 
+The red dashed line have a particular meaning in queueing theory (you do know you're queuing theory 
+don't you?)
 
 
 
@@ -120,8 +137,9 @@ So, what is it all about? It's about cost or, more formally, capacity planning.
   1. [Tomcat-Applikationsperformance in der Amazon-Cloud unter Linux modelliert](https://www.linux-magazin.de/ausgaben/2019/02/aws-performance/) (Linux Magazin 2019 in German)
   1. [Linux-Tomcat Application Performance on Amazon AWS](https://arxiv.org/abs/1811.12341) (2019 in English)
   1. [How to Scale in the Cloud: Chargeback is Back, Baby!](https://speakerdeck.com/drqz/how-to-scale-in-the-cloud-chargeback-is-back-baby) (2019 Rocky Mountain CMG slides)
-
-
+  1. [PDQ: Pretty Damn Quick Performance Analyzer](http://www.perfdynamics.com/Tools/PDQ.html)
+  1. [PDQ Software Distribution version 7.0](http://www.perfdynamics.com/Tools/PDQcode.html)
+  1. [PDQW: Pretty Damn Quick Workshop](http://www.perfdynamics.com/Classes/Outlines/pdqw.html)
 
 
 
