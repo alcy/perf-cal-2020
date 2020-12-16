@@ -71,6 +71,7 @@ Since each user-request is assigned to a Tomcat thread, we can label N as "users
 <figcaption><b>Figure 1: Throughput profile of Tomcat application on AWS</b><p></figcaption>
 
 
+Figure 1 is quite busy. 
 The dots are the measured throughput at a given load. Each dot corresponds to a particular 
 timestamp when the data was sampled but, that information has becomes *implicit* rather than 
 explicit in Figure 1. 
@@ -91,12 +92,14 @@ of linear regression analysis.  The variation in the data corresponds to statist
 (or "noise") about the mean. 
 
 Moreover, these red dashed line have a particular meaning in queueing theory&mdash;you do know you're queuing theory 
-don't you? (see Ref. 4) 
+don't you? (elsewise, see Ref. 4) 
 The diagonal line represents the ideal **parallel** performance bound. In other words, you cannot 
 have a throughput better than that as you increase the request load; on average. 
 Similarly, the horizontal line represents the ideal **saturation** performance bound. 
 You cannot have a throughput that exceeds that bound; on average. 
-As the data shows, you can have *instantaneous* values that exceed these bounds but 
+A more typical average throughput profile is represented by the blue dotted curve, i.e., 
+well below the bounds.  In that case, a lot more queueing is present. 
+As the AWS data shows, you can have *instantaneous* values that exceed these bounds but 
 they only transient. 
 
 In case you're wondering, yes, Figure 1 only shows measurements from one EC2 instance. 
@@ -147,8 +150,7 @@ for (i in 1:length(requests)) {
 
 Finally, we plot the throughput values, X(N), which correspond to the white squares in Figure 1.
 ```R
-plot(xx, yx, 
-     type="p", col="blue", pch=0, 
+plot(xx, yx, type="p", pch=0, 
      xlim=c(0,500), ylim=c(0,800), 
      xlab="Threads, N", ylab="Request rate, X(N)"
 )
@@ -156,6 +158,15 @@ plot(xx, yx,
 
 That's all it takes. A slight variation in the PDQ code can be used to calculate the 
 corresponding responce times in Figure 2.
+
+The point of constructing the PDQ model is to see if there are missed opportunities for performance 
+improvements. The hint is that there does not seem to be much. 
+The initial throughput increases linearly with load and runs along the parallel bound. 
+You can't beat that. 
+It might be possible to lift the saturation bound in some way but, I'll come back to that later. 
+The only other improvement might be to reduce the variability in the data. 
+
+
 
 
 ### Latency profile
@@ -183,18 +194,6 @@ hockey stick "handle".
 
 
 
-  * AWS tomcat application
-  * IMAGE of throughput scaling under AWS Auto Scaling 
-      * plot of X data
-      * plot of PDQ overlaid
-  * Good as it can be !!! (but that's just throughput)
-  * IMAGE of response time (don't forget that)
-      * plot of X data
-      * plot of PDQ overlaid
-  * RT penalty still can't be ignored
-  * PDQ code in R sans plot loop
-  * But minimal ROI for more tuning
-  * It's all about CHARGEBACK 
 
 production application 
 
@@ -212,6 +211,17 @@ is a consequence of the Auto Scaling policy that CPU busy not exceed 75% on any 
 
 So, what is it all about? It's about cost or, more formally, capacity planning. 
 ... TBC
+
+  * But minimal ROI for more tuning
+  * It's all about CHARGEBACK 
+
+I have seen throughput data for a completely different Tomcat application that was not 
+running in any cloud and it did not appear to scale anywhere near as well is Figure 1. 
+Since I wasn't involved in any way, 
+I don't know if that was an anomaly due to bad measurements or bad configuration or some other 
+latent effects. 
+
+Like I said at the beginning of this piece: simple! 
 
 
   
