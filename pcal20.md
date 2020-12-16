@@ -229,13 +229,6 @@ so-called hockey stick "handle".
 
 
 
-production application 
-
-queueing theory .... encapsulated in PDQ queueing analyzer
-
-show PDQ code as: loop + subroutine
-
-
 ## The Punchline
 
 Now you can see the meaning of my title. It's not about performance in most cases because 
@@ -253,13 +246,16 @@ standard performance tuning exploits.
 
 In the cloud, one really needs thoroughly understand how Amazon 
 charges for capacity. That involves understanding the cost differentials for 
-reserved instances, demand instances, spot instances and more recently, lambdas microservices.
+reserved instances, demand instances, spot instances and more recently, lambdas microservices. 
+(see Figure 4) 
 The same goes for Google or Microsoft cloud services.
 
-As any MBA will atest, it's not really possible to understand cost-benefit analysis without 
-combining measurement with models. In this case, performance models like the PDQ models described here. 
+As any MBA will attest, it's not really possible to understand cost-benefit analysis without 
+combining measurement with models. In this case, capacity models like the PDQ model described here. 
 
-Like I said at the beginning of this piece: simple! 
+
+
+>(Like I said at the beginning of this piece: simple!) <- need a parting remark here.
 
 
   
