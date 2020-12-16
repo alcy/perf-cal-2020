@@ -2,18 +2,22 @@
 
 
 Performance Calendar articles are mostly about improving web performance. 
-That's good because I don't know much about the web: it's very difficult. 
+That's good because I don't know much about the web: it's very complicated. 
 So, I'm going to talk about something much more transparent: cloud performance. 
 In that sense, my title should read: *It Ain't About Performance No More...* **in The Cloud**.
 
-Moreover, I'm going to discuss cloud performance using just two images, viz., 
-application throughput and latency in the cloud. 
-Everybody talks about those two metrics so, that should make it easy.
+Moreover, I'm going to discuss cloud performance using just two figures, viz., 
+application throughput and application latency in the cloud. 
+Everybody loves to talk about those two metrics so, that should make things easy.
+
 
 ## Tomcat on AWS
 The context is a mobile application running on top of a Tomcat thread-server that also 
-communicates with other third-party web services, e.g., hotel and car rental reservation systems. 
-The AWS configuration can be summarized as:
+communicates with other third-party web services, e.g., hotel and car-rental reservation systems. 
+A variable number of application instances are active during each 24 hour business cycle, depending 
+on the user traffic. The elastic capacity requirements are handled by Amazon Web Services (AWS). 
+
+The AWS cloud configuration can be summarized as:
 
   * Elastic load balancer (ELB)
   * AWS Elastic Cluster (EC2) instance type `m4.10xlarge` with 20 CPUs or 40 VPUs 
@@ -23,9 +27,26 @@ The AWS configuration can be summarized as:
   * A/S controls the number of active EC2 instances based on incoming ELB traffic and configured A/S policies
   * ELB balances incoming traffic across all active EC2 nodes in the AWS cluster
 
+All the subsequent performance data discussed here are taken from this is a production environment. 
+
+
 
 
 ## Performance Profiles
+
+Performance data was collected using combinations of these FOSS tools:
+
+  * JMX (Java Management Extensions) data from JVM
+  * jmxterm
+  * VisualVM
+  * Java Mission Control Datadog dd-agent
+  * Datadog — also integrates with AWS CloudWatch metrics Collectd — Linux performance data collection
+  * Graphite and statsd — application metrics collection & storage Grafana — time-series data plotting
+  * Custom data collection scripts
+  * R statistical libs and RStudio IDE
+  * PDQ performance modeling tool 
+
+
 
 ![Figure 1](fig1.png)  
 <figcaption><b>Figure 1: Throughput profile of Tomcat application  on AWS</b></figcaption>
