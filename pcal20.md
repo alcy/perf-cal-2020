@@ -1,11 +1,12 @@
 # It Ain't About Performance No More
 
 
-Perf Calendar articles are about the web. 
-I don't know much about the web (too obscure) so I'm going to say something about the cloud (more transparent). 
-It Ain't About Performance No More ... in the cloud.
+Performance Calendar articles are mostly about improving web performance. 
+That's good because I don't know much about the web: it's very difficult. 
+So, I'm going to talk about something much more transparent: cloud performance. 
+In that sense, what the title should beis: *It Ain't About Performance No More ... in The Cloud.*
 
-And I'm going to do it with with just two images.
+Moreover, I'm going to discuss cloud performance using just two images.
 
 ![Figure 1](fig1.png)  
 <figcaption><b>Figure 1: Throughput profile of Tomcat application  on AWS</b></figcaption>
