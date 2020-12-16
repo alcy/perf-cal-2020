@@ -109,10 +109,7 @@ fault of the load balancer configuration of some other effect in the infrastruct
 ### PDQ Model
 
 The following PDQ model, written in the R language, can be used to calculate the 
-throughput points X(N) in Figure 1. A slight variation can be used to calculate the 
-corresponding responce times in Figure 2.
-
-First, we define some global vectors for the PDQ model. 
+throughput points X(N) in Figure 1. First, we define some global vectors for the PDQ model. 
 
 ```R
 requests <- seq(50, 500, 50) # from mobile users
@@ -157,12 +154,14 @@ plot(xx, yx,
 )
 ```
 
-That's all it takes.
+That's all it takes. A slight variation in the PDQ code can be used to calculate the 
+corresponding responce times in Figure 2.
 
 
 ### Latency profile
 
-Next, let's look at the corresponding response time profile. 
+Next, let's look at the corresponding response time profile. Roughly speaking, it is the 
+inverse function of the throughput: a convex function. 
 
 ![](fig2.png) 
 <figcaption><b>Figure 2: Latency profile of Tomcat application  on AWS</b><p></figcaption>
@@ -170,6 +169,18 @@ Next, let's look at the corresponding response time profile.
 Figure 2 shows the steady-state view of the response time, R(N), as a nonlinear function of 
 the mobile user request load, N. Here, R(N) is the 
 dependent variable. All steady-state response time profiles are *convex* functions. 
+
+In the parallel throughput region of Figure 1, all the threads are executing independently 
+of one another and therefore the the latency remains constant, on average. 
+To performance analysts, that horizontal bound is referred to as the "foot" of the "hockey stick" 
+profile. In terms of queueing, there isn't any. 
+
+Conversely, the horizontal saturation limit in Figure 1, means the system can't do any more 
+work than it was doing at N = 300 threads. Any additional threads do not contribute to the 
+throughput. On the other hand, the additional requesting threads do get to wait in queues. 
+Those growing queues are reflected in the increasing diagonal line of Figure 2&mdash;the 
+hockey stick "handle". 
+
 
 
   * AWS tomcat application
