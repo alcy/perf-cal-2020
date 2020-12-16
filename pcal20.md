@@ -109,18 +109,30 @@ If instances are not scaling identically, that's not the fault of queueing theor
 fault of the load balancer configuration of some other effect in the infrastructure.  
 
 
+
+
 ### PDQ Model
 
 The white squares in Figure 1 (i.e., the calculated throughput X(N)) 
-come from the queueing model shown in Figure 2. 
-.... TBC
+come from the queueing model shown schematically in Figure 2. 
+Reading from left to right, the little bubbles in curly braces represent N user-threads and 
+their associated think time, Z. For technical reasons, we set Z = 0 in this Tomcat model. 
+User request flow rightward to a waiting line (the little boxes) labelled, W. 
+There, the requests wait to have their work done the Tomcat active threads, shown in the 
+second set of curly braces. 
+The average service time of an active threads is 444 milliseconds (derived from the collected 
+data on the EC2 instance). 
+It turns out that there can only be up to 300 active threads in the AWS set up. 
+More on this, later. 
+
 
 ![](fig2.png) 
 <figcaption><b>Figure 2: PQQ queueing model of AWS-Tomcat</b><p></figcaption>
 
 
-Figure 2 can be expressed in PDQ using the R language, as follows. 
-First, we define some global vectors for the PDQ model. 
+Figure 2 can be expressed in PDQ, in the R language, as follows. 
+First, we define some global vectors, such as the number of user requests, the number of 
+active threads, their service time, and so on. 
 
 ```R
 requests <- seq(50, 500, 50) # from mobile users
@@ -130,7 +142,7 @@ xx       <- NULL  # x-axis load points
 yx       <- NULL  # corresponding throughput 
 ```
 
-Then, we define the AWS-Tomcat instance model using PDQ  library functions.
+Then, we define the AWS-Tomcat instance model using PDQ library functions.
 
 ```R
 library(pdq)
@@ -147,8 +159,8 @@ aws.model <- function(nindex) {
 }
 ```
 
-The throughput is then calculated for the load created by the corresponding number of user threads.
-This part can be written as a simple loop. 
+The throughput is then calculated for each load value, N, of interest. 
+This part of the PDQ model can simply be written as a loop. 
 
 ```R
 for (i in 1:length(requests)) {
