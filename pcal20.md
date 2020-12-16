@@ -4,9 +4,13 @@
 Performance Calendar articles are mostly about improving web performance. 
 That's good because I don't know much about the web: it's very difficult. 
 So, I'm going to talk about something much more transparent: cloud performance. 
-In that sense, what the title should beis: *It Ain't About Performance No More ... in The Cloud.*
+In that sense, my title should read: *It Ain't About Performance No More...* **in The Cloud**.
 
-Moreover, I'm going to discuss cloud performance using just two images.
+Moreover, I'm going to discuss cloud performance using just two images, viz., 
+cloud application throughput and latency. Everybody talks about those metrics so, that should 
+make it easy.
+
+## Tomcat application on AWS
 
 ![Figure 1](fig1.png)  
 <figcaption><b>Figure 1: Throughput profile of Tomcat application  on AWS</b></figcaption>
@@ -34,15 +38,18 @@ production application
 
 queueing theory .... encapsulated in PDQ queueing analyzer
 
+show PDQ code as: loop + subroutine
+
+
+
 
   
   ## References
-  * [Tomcat-Applikationsperformance in der Amazon-Cloud unter Linux modelliert](https://www.linux-magazin.de/ausgaben/2019/02/aws-performance/) (Linux Magazin 2019 in German)
-  * [Linux-Tomcat Application Performance on Amazon AWS](https://arxiv.org/abs/1811.12341) (2019 in English)
-  * [How to Scale in the Cloud: Chargeback is Back, Baby!](https://speakerdeck.com/drqz/how-to-scale-in-the-cloud-chargeback-is-back-baby) (2019 Rocky Mountain CMG slides)
+  1. [Tomcat-Applikationsperformance in der Amazon-Cloud unter Linux modelliert](https://www.linux-magazin.de/ausgaben/2019/02/aws-performance/) (Linux Magazin 2019 in German)
+  1. [Linux-Tomcat Application Performance on Amazon AWS](https://arxiv.org/abs/1811.12341) (2019 in English)
+  1. [How to Scale in the Cloud: Chargeback is Back, Baby!](https://speakerdeck.com/drqz/how-to-scale-in-the-cloud-chargeback-is-back-baby) (2019 Rocky Mountain CMG slides)
 
 
-foo bar 
 
 
 
