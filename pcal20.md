@@ -34,7 +34,8 @@ All the subsequent performance data discussed here are taken from this is a prod
 
 ## Performance Profiles
 
-Performance data was collected using combinations of these FOSS tools:
+Performance data was collected from the above **production** system using a combination
+ of the following FOSS tools:
 
   * JMX (Java Management Extensions) data from JVM
   * jmxterm
@@ -191,6 +192,14 @@ You can't beat that.
 It might be possible to lift the saturation bound in some way but, I'll come back to that shorty. 
 The only other improvement might be to reduce the variability in the data. 
 
+I note in passing that I've 
+seen throughput data for a completely different Tomcat application that was not 
+running in any cloud and it did not appear to scale as well is Figure 1. 
+Perhaps it was closer to the dotted curve. 
+Since I wasn't involved in any way, 
+I don't know if that was an anomaly due to bad measurements or bad configuration or some other 
+latent effects. 
+
 
 
 
@@ -235,22 +244,20 @@ result than me. This Tomcat application is scaling maximally. The throttling at 
 is a consequence of the Auto Scaling policy that CPU busy not exceed 75% on any EC2 instance. 
 
 So, what is it all about? It's about cost or, more formally, capacity planning. 
-... TBC
+It's all about ROI, where there's only minimal ROI to be had by applying 
+standard performance tuning exploits.
 
-  * But minimal ROI for more tuning
-  * It's all about CHARGEBACK 
-  
-  
   
 ![](fig4.png) 
 <figcaption><b>Figure 4: AWS capacity lines</b><p></figcaption>
 
+In the cloud, one really needs thoroughly understand how Amazon 
+charges for capacity. That involves understanding the cost differentials for 
+reserved instances, demand instances, spot instances and more recently, lambdas microservices.
+The same goes for Google or Microsoft cloud services.
 
-I have seen throughput data for a completely different Tomcat application that was not 
-running in any cloud and it did not appear to scale anywhere near as well is Figure 1. 
-Since I wasn't involved in any way, 
-I don't know if that was an anomaly due to bad measurements or bad configuration or some other 
-latent effects. 
+As any MBA will atest, it's not really possible to understand cost-benefit analysis without 
+combining measurement with models. In this case, performance models like the PDQ models described here. 
 
 Like I said at the beginning of this piece: simple! 
 
