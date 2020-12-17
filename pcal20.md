@@ -278,10 +278,10 @@ A/S policy: if the EC2 instance CPU busy exceeds 75%, spin up additional VMs and
 There's no way Linux understands how to do such a thing. The Linux scheduler will simply shovel more threads onto CPU until it approaches 
 100% busy, i.e., until the CPU cores saturate. (I'm ignoring *cgroups*, which are not applicable here) 
 So, the discontinuous knee in X(N) is actually a *pseudo-saturation* effect due to the A/S policy being invoked. 
-The concomitant load at which the pseudo-saturation knee occurs, happens to be N = 300 threads in Figure 1. 
+The concomitant load at which the pseudo-saturation knee occurs happens to be N = 300 threads. 
 
 It's left as an exercise for the reader to ponder who or what is acting on the A/S 
-policy statement. Let me narrow it down for you. 
+policy assertion. Let me narrow it down for you. 
 It's not the EC2 hardware. 
 It's not Linux.
 It's not Tomcat.
