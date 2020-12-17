@@ -108,8 +108,7 @@ The red lines represent the *statistical mean* of the measured data&mdash;in the
 of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
 (or "noise") about the mean. 
 
-Moreover, these red dashed line have a particular meaning in queueing theory&mdash;you do 
-know you're queuing theory don't you? (elsewise, see Ref. 4) 
+Moreover, these red dashed line have a particular meaning in queueing theory&mdash;[you do know you're queuing theory don't you?](http://www.perfdynamics.com/Tools/PDQ.html) (elsewise, see Ref. 4) 
 The diagonal line represents the ideal **parallel** performance bound. In other words, you cannot 
 have a throughput better than that as you increase the request load; on average. 
 Similarly, the horizontal line represents the ideal **saturation** performance bound. 
@@ -294,7 +293,6 @@ Anyway, it's mysteries such as these that help to make the cloud simple. ;)
   1. [Tomcat-Applikationsperformance in der Amazon-Cloud unter Linux modelliert](https://www.linux-magazin.de/ausgaben/2019/02/aws-performance/) (Linux Magazin 2019 in German)
   1. [Linux-Tomcat Application Performance on Amazon AWS](https://arxiv.org/abs/1811.12341) (2019 in English)
   1. [How to Scale in the Cloud: Chargeback is Back, Baby!](https://speakerdeck.com/drqz/how-to-scale-in-the-cloud-chargeback-is-back-baby) (2019 Rocky Mountain CMG slides)
-  1. [PDQ: Pretty Damn Quick Performance Analyzer](http://www.perfdynamics.com/Tools/PDQ.html)
   1. [PDQ Version 7 Download](http://www.perfdynamics.com/Tools/PDQcode.html)
   1. [PDQW Tutorial Workshop](http://www.perfdynamics.com/Classes/Outlines/pdqw.html)
 
