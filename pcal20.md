@@ -51,6 +51,11 @@ Performance data was collected from the above **production** system using a comb
 
 More details about the data collection procedures can be found in References 1 and 2 below. 
 
+PDQ (Pretty Damn Quick) is software tool, written by the author, comprising a 
+[library of functions](http://www.perfdynamics.com/Tools/PDQman.html)
+for solving queue-theoretic performance models. 
+An explicit example will be presented shortly. 
+
 
 
 ### Throughput profile
@@ -73,11 +78,12 @@ Since each user-request is assigned to a Tomcat thread, we can label N as "users
 
 
 Figure 1 is quite busy. 
-The dots are the measured throughput at a given load. Each dot corresponds to a particular 
+The dots are the measured throughput, X, at the corresponding number of measured threads, N. 
+Each dot corresponds to a particular 
 timestamp when the data was sampled but, that information has becomes *implicit* rather than 
 explicit in Figure 1. 
-The data points range approximately between N = 100 
-user-threads and N = 500 threads. On reflection, it should be clear that the lower values of N 
+The data points range approximately between N = 100 user-threads and N = 500 threads. 
+On reflection, it should be clear that the lower values of N 
 correspond to the quiescent period during the 24 hour window and conversely, 
 the higher values of N correspond to the heaviest daily traffic. 
 
@@ -103,7 +109,8 @@ well below the bounds.  In that case, a lot more queueing is present.
 As the AWS data shows, you can have *instantaneous* values that exceed these bounds but 
 they only transient. 
 
-In case you're wondering, yes, Figure 1 only shows measurements from one EC2 instance. 
+In case you're wondering, yes, Figure 1 only shows measurements from one EC2 instance 
+in the AWS cluster. 
 For the standpoint of PDQ, that's the correct approach. All the instances are supposed to scale 
 identically. That's the job of the ECB load balancer and that's the assumption of PDQ. 
 If instances are not scaling identically, that's not the fault of queueing theory, that's the 
@@ -140,6 +147,7 @@ active threads, their service time, and so on.
 requests <- seq(50, 500, 50) # from mobile users
 threads  <- 300   # max threads under AWS auto scale policy
 stime    <- 0.444 # measured service time in seconds
+ztime    <- 0.0   # measured think time in seconds
 xx       <- NULL  # x-axis load points 
 yx       <- NULL  # corresponding throughput 
 ```
@@ -151,7 +159,7 @@ library(pdq)
 
 aws.model <- function(nindex) {
   pdq::Init("")  
-  pdq::CreateClosed("Requests", BATCH, requests[nindex], 0.0)
+  pdq::CreateClosed("Requests", BATCH, requests[nindex], ztime)
   pdq::CreateMultiNode(threads, "Threads", MSC, FCFS) 
   pdq::SetDemand("Threads", "Requests", stime) 
   pdq::SetWUnit("Reqs")
@@ -256,6 +264,7 @@ combining measurement with models. In this case, capacity models like the PDQ mo
 
 
 >(Like I said at the beginning of this piece: simple!) <- need a parting remark here.
+>Also, explain A/S pseudo saturation. 
 
 
   
