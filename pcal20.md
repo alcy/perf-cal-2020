@@ -75,8 +75,7 @@ particularly useful.
 It's just an obvious and straightforward thing for them to do: render the metrics in time. 
 
 Instead, Figure 1 shows the steady-state view of the throughput, denoted X(N), as a nonlinear 
-function of the load, N. due to mobile user requests.  
-In other words, N is the *independent* variable and X(N) is the 
+function of the load, N. due to mobile user requests. In other words, N is the *independent* variable and X(N) is the 
 *dependent* variable. All steady-state throughput profiles are *concave* functions. 
 Since each user-request is assigned to a Tomcat thread, we can optionally label N as "users" or 
 "requests" or "threads". They're all logically equivalent. 
@@ -97,12 +96,11 @@ On reflection, it should be clear that the lower values of N
 correspond to the quiescent period during the 24 hour window and conversely, 
 the higher values of N correspond to the heaviest daily traffic. 
 
-What is not apparent from a simple scatterplot of those data is that they tend to fall along 
-two line segments:
-  1. the diagonal red line (up to N = 300)
-  1. the horizontal red line (for N > 300)
+What is not apparent in a simple scatterplot of those data is that they tend to fall along two lines:
+  1. the diagonal red line (up to N < 300)
+  1. the horizontal red line (for N >= 300)
 
-That knee in the data is indicated by the vertical arrow. 
+That knee in the data at N = 300 is indicated by the vertical arrow. 
 
 The red lines represent the *statistical mean* of the measured data&mdash;in the sense 
 of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
@@ -115,7 +113,7 @@ Similarly, the horizontal line represents the ideal **saturation** performance b
 You cannot have a throughput that exceeds that bound; on average. 
 A more typical average throughput profile is represented by the blue dotted curve in Figure 1. 
 In that case, a lot more queueing occurs and the curve is therefore well below the red-line bounds. 
-As the AWS performance data shows, there are *instantaneous* values that do exceed these bounds but,  
+As the AWS performance data shows, there are *instantaneous* values that do exceed these bounds but, 
 they are only transient values. The red lines are the *statistical mean* of those transient values. 
 
 In case you're wondering, yes, Figure 1 only shows measurements from one EC2 instance 
