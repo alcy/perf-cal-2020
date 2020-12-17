@@ -41,18 +41,18 @@ running in a *production* environment, rather than a load-testing environment.
 Performance data was collected from the AWS production system and analyzed using a combination 
 of the following FOSS tools and scripts:
 
-  * JMX (Java Management Extensions) data from JVM
-  * jmxterm
-  * VisualVM
-  * Java Mission Control Datadog dd-agent
-  * Datadog — also integrates with AWS CloudWatch metrics 
-  * Collectd — Linux performance data collection
-  * Graphite and statsd — application metrics collection and storage 
-  * Grafana — time-series data plotting
+  * **JMX** (Java Management Extensions) data from JVM
+  * **jmxterm**
+  * **VisualVM**
+  * **Java Mission Control** Datadog dd-agent
+  * **Datadog** — also integrates with AWS CloudWatch metrics 
+  * **Collectd** — Linux performance data collection
+  * **Graphite** and **statsd** — application metrics collection and storage 
+  * **Grafana** — time-series data plotting
   * Custom data collection scripts
-  * R [statistical libraries](https://www.r-project.org) and the 
+  * **R** [statistical libraries](https://www.r-project.org) with 
   [RStudio IDE](https://rstudio.com/products/rstudio/download/)
-  * PDQ queueing analyzer tool 
+  * **PDQ** queueing analyzer tool 
 
 More details about the data collection procedures can be found in References 1 and 2 below. 
 
