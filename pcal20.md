@@ -47,17 +47,18 @@ of the following FOSS tools and scripts:
   * Java Mission Control Datadog dd-agent
   * Datadog — also integrates with AWS CloudWatch metrics 
   * Collectd — Linux performance data collection
-  * Graphite and statsd — application metrics collection & storage 
+  * Graphite and statsd — application metrics collection and storage 
   * Grafana — time-series data plotting
   * Custom data collection scripts
-  * R statistical libraries and the RStudio IDE
+  * R [statistical libraries](https://www.r-project.org) and the 
+  [RStudio IDE](https://rstudio.com/products/rstudio/download/)
   * PDQ queueing analyzer tool 
 
 More details about the data collection procedures can be found in References 1 and 2 below. 
 
 The last tool on that list,  
 PDQ (Pretty Damn Quick), is a [software tool](http://www.perfdynamics.com/Tools/PDQcode.html), 
-written in C by the author, that comprises a 
+written in C by the author. It comprises a 
 [library of functions](http://www.perfdynamics.com/Tools/PDQman.html)
 for solving queue-theoretic performance models. 
 An example of how it is used will be presented momentarily. 
@@ -93,7 +94,7 @@ A dot also corresponds to a particular
 timestamp when the data was sampled but, that information has becomes *implicit* rather than 
 explicit in Figure 1. I can find the time when any dot was sampled, if I should need to. 
 
-The data points range approximately between N = 100 user-threads and N = 500 threads. 
+The data points range approximately between N = 100 and N = 500 threads. 
 On reflection, it should be clear that the lower values of N 
 correspond to the quiescent period during the 24 hour window and conversely, 
 the higher values of N correspond to the heaviest daily traffic. 
