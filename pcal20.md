@@ -106,29 +106,32 @@ The red lines represent the *statistical mean* of the measured data&mdash;in the
 of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
 (or "noise") about the mean. 
 
-Moreover, these red dashed line have a particular meaning in queueing theory&mdash;[you do know you're queuing theory don't you?](http://www.perfdynamics.com/Tools/PDQ.html) 
+Moreover, these red lines have a particular meaning in queueing theory&mdash;[you do know you're queuing theory don't you?](http://www.perfdynamics.com/Tools/PDQ.html) 
 The diagonal line represents the ideal **parallel** performance bound. In other words, you cannot 
-have a throughput better than that as you increase the request load; on average. 
-Similarly, the horizontal line represents the ideal **saturation** performance bound. 
-You cannot have a throughput that exceeds that bound; on average. 
-A more typical average throughput profile is represented by the blue dotted curve in Figure 1. 
-In that case, a lot more queueing occurs and the curve is therefore well below the red-line bounds. 
-As the AWS performance data shows, there are *instantaneous* values that do exceed these bounds but, 
-they are only transient values. The red lines are the *statistical mean* of those transient values. 
+have a throughput better than that as you increase the request load; *on average*. 
+Similarly, the horizontal line represents the **saturation** performance bound. 
+You cannot have a throughput that exceeds that bound; *on average*. 
+A more typical throughput profile is represented by the blue dotted curve in Figure 1. 
+In that case, a lot more queueing occurs and the curve is therefore well below the *redline* limits. 
+To be clear, you can see *instantaneous* values that do exceed these redlines but, 
+they are only transient values. The redline is the *statistical mean* of those transient values. 
 
-In case you're wondering, yes, Figure 1 only shows measurements from one EC2 instance 
+And, in case you're wondering, yes, Figure 1 only shows measurements on a single EC2 instance 
 in the AWS cluster. 
-For the standpoint of PDQ, that's the correct approach. All the instances are supposed to scale 
-identically. That's the job of the ECB load balancer and that's the assumption of PDQ. 
-If instances are not scaling identically, that's not the fault of queueing theory, that's the 
-fault of the load balancer configuration of some other effect in the infrastructure.  
+From the standpoint of PDQ (discussed in the next section), that's the correct approach. 
+All the instances are supposed to scale identically. 
+That's the job of the ECB load balancer and that's the assumption PDQ also uses. 
+If instances are not scaling identically, that's not the fault of queueing theory. That's the 
+fault of the load balancer configuration of some other aspect of the cloud infrastructure.  
 
 
 
 
 ### Latency profile
 
-Next, let's look at the corresponding response time profile. Roughly speaking, it is the 
+Next, let's look at the corresponding response time profile. 
+Response time here refers to the elapsed wall-clock time from the issuance of a mobile-user request 
+to receiving the completed response from the Tomcat application (including all business-logic processing). Roughly speaking, it is the 
 inverse function of the throughput: a convex function. 
 
 ![](fig2.png) 
