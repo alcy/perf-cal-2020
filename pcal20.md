@@ -151,6 +151,7 @@ work than it was doing at N = 300 threads. Any additional threads do not contrib
 throughput. On the other hand, the additional requests do get to wait in queues. 
 That those queues grow is reflected in the diagonal line of Figure 2&mdash;the 
 hockey stick *handle*. Note further that that "handle" is LINEAR, not exponential. 
+If more than 500 users were added, the growth would remain linear. 
 
 
 
@@ -158,8 +159,7 @@ hockey stick *handle*. Note further that that "handle" is LINEAR, not exponentia
 
 ## PDQ Model
 
-The white squares in Figure 1 (i.e., the calculated throughput X(N)) 
-come from the queueing representation shown schematically in Figure 2. 
+The white squares in Figures 1 and 2 come from the queueing representation shown schematically in Figure 3. 
 
 ![](fig3.png) 
 <figcaption><b>Figure 3: Queueing representation of AWS-Tomcat</b><p></figcaption>
@@ -170,13 +170,12 @@ their associated think time, Z. For technical reasons, we set Z = 0 in this Tomc
 User requests flow rightward to a waiting line (the little boxes) labelled, W. 
 There, the requests wait to have their work performed by active Tomcat threads, shown as the bubbles in the 
 second set of curly braces. 
-The average service time of an active threads is S = 444 milliseconds (derived from the collected 
-data on the EC2 instance). 
+The average service time of an active thread is S = 444 milliseconds (derived from the data collected from the EC2 instance). 
 It turns out that there can only be up to 300 active threads in the AWS set up. 
 More on this, later. 
 
 
-Figure 2 can be expressed in PDQ, using the R language, as follows. 
+Figure 3 can be expressed in PDQ, using the R language, as follows. 
 First, we assign some global vectors, such as the number of user requests, the number of 
 active threads, their service time, and so on. 
 
@@ -206,7 +205,7 @@ aws.model <- function(nindex) {
 } 
 ```
 
-The throughput is then calculated for each load point, N, of interest. 
+The throughput, for example, is then calculated for each load point, N, of interest. 
 This part of the PDQ model can simply be written as a loop over the `aws.model` function. 
 
 ```R
@@ -224,23 +223,24 @@ plot(xx, yx, type="p", pch=0,
 ```
 
 That's all it takes (see Ref. 5). A slight variation in the PDQ code can be used to calculate the 
-corresponding response times in Figure 3.
+corresponding response times in Figure 2.
 
-The point of constructing the PDQ model is to  
+The reason for constructing the PDQ model is to  
 
   1. validate the performance data by comparing it with a model of expected values
   1. see if there are opportunities for performance improvement 
 
-The hint from Figure 1 is that the measured X(N) and R(N) validate very well with PDQ but, there is not much room for performance improvement. 
+The hint from Figures 1 and 2 is that the measured X(N) and R(N) corroborate very well with PDQ. 
+On the other hand, the PDQ model makes clear that there is not much room for performance improvement. 
 The initial throughput increases linearly with load and runs along the parallel bound. You can't beat that. 
 It might be possible to lift the saturation bound in some way but, it turns out there isn't. I'll return to that point, shorty. 
 The only other improvement might be to reduce the variability in the data. 
 
 I should note in passing that I've seen throughput data for a completely different Tomcat application that was not 
-running in any cloud and it did not appear to scale as well is Figure 1. 
-Its profile was closer to the dotted curve. 
+running in the cloud and it did not appear to scale as well as Figure 1. 
+Its profile was closer to the dotted curve in Figure 1. 
 Since I wasn't involved with that system in any way, 
-I don't know if the difference was due to bad measurements or bad configuration or something else. 
+I don't know if the difference was due to bad measurements, bad configuration, or something else. 
 
 
 
@@ -249,33 +249,32 @@ I don't know if the difference was due to bad measurements or bad configuration 
 ## The Punchline
 
 Now you can see the meaning of my title. It's not about performance in most cases because 
-scaling is taken care of automagically&mdash;more or less. Nobody was more surprised by this 
+scaling is taken care of automagically by the AWS cloud. Nobody was more surprised by this 
 result than me. This Tomcat application is scaling maximally. The throttling at N = 300 threads 
-is a consequence of the Auto Scaling policy that CPU busy not exceed 75% on any EC2 instance. 
+is a consequence of the Auto Scaling policy whereby CPU utilization was not exceed 75% on any EC2 instance. 
 
-So, what is it all about? It's about cost or, more formally, capacity planning. 
-It's about serious ROI. Applying standard performance tuning exploits generally only achieves minimal ROI. 
-On another level, this is nothing new. Decades ago, expensive monolithic mainframe computers literally charged your 
-department budget when you ran an application. Back then, mainframe CPU cycles cost big bucks! 
-The cloud is the new mainframe (see Ref. 3). 
+So, if it's not about performance, what is it all about? It's about cost or, more formally, capacity planning. 
+It's about hard-core ROI. Applying standard performance tuning exploits will generally not gain much ROI. 
+From a totally different perspective, this is nothing new. Decades ago, expensive monolithic mainframe computers literally charged your 
+departmental budget when you ran an application, e.g., billing. Back then, mainframe MIPS cost big bucks! 
+**The cloud is the new mainframe** (see Ref. 3). 
 
   
 ![](fig4.png) 
 <figcaption><b>Figure 4: AWS infrastructure capacity lines</b><p></figcaption>
 
-When it comes to the cloud, one really needs thoroughly understand how Amazon 
+When it comes to the cloud, one really needs to thoroughly understand how Amazon 
 charges for capacity. That involves understanding the cost differentials for 
 reserved instances, demand instances, spot instances and more recently, AWS lambda serverless microservices, 
-and how they relate to capacity consumption. 
-See the schematic representation AWS capacity lines in Figure 4. 
+and how all that relates to the cost of capacity consumption. See Figure 4. 
 The same observation applies to Google GCP and Microsoft Azure cloud services.
 
 As any MBA will attest, it's not really possible to do a proper cost-benefit analysis without 
 combining [measurements with models](https://perfdynamics.blogspot.com/2009/06/data-models-insight.html). 
 In this case, capacity models like the PDQ model described above. 
 
-Coming back to the "knee" in Figure 1 or the "ankle" in Figure 2, it should be noted that they are a consequence of the 
-A/S policy: if the EC2 instance CPU busy exceeds 75%, spin up additional VMs and rebalance the incoming mobilerequest load. 
+Returning to the "knee" in Figure 1 or the "ankle" in Figure 2, it should be noted that they are a consequence of the 
+A/S policy: if the EC2 instance CPU busy exceeds 75%, spin up additional VMs and rebalance the incoming mobile request load. 
 There's no way Linux understands how to do such a thing. The Linux scheduler will simply shovel more threads onto CPU until it approaches 
 100% busy, i.e., until the CPU cores saturate. (I'm ignoring *cgroups*, which are not applicable here) 
 So, the discontinuous knee in X(N) is actually a *pseudo-saturation* effect due to the A/S policy being invoked. 
