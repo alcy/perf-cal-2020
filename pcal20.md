@@ -161,6 +161,10 @@ so-called hockey stick "handle".
 The white squares in Figure 1 (i.e., the calculated throughput X(N)) 
 come from the queueing representation shown schematically in Figure 2. 
 
+![](fig2.png) 
+<figcaption><b>Figure 2: Queueing representation of AWS-Tomcat</b><p></figcaption>
+
+
 Reading from left to right, the little bubbles in curly braces represent N user-threads and 
 their associated think time, Z. For technical reasons, we set Z = 0 in this Tomcat model. 
 User requests flow rightward to a waiting line (the little boxes) labelled, W. 
@@ -170,10 +174,6 @@ The average service time of an active threads is S = 444 milliseconds (derived f
 data on the EC2 instance). 
 It turns out that there can only be up to 300 active threads in the AWS set up. 
 More on this, later. 
-
-
-![](fig2.png) 
-<figcaption><b>Figure 2: Queueing representation of AWS-Tomcat</b><p></figcaption>
 
 
 Figure 2 can be expressed in PDQ, using the R language, as follows. 
