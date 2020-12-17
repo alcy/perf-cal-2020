@@ -51,10 +51,11 @@ Performance data was collected from the above **production** system using a comb
 
 More details about the data collection procedures can be found in References 1 and 2 below. 
 
-PDQ (Pretty Damn Quick) is software tool, written by the author, comprising a 
+PDQ (Pretty Damn Quick) is a [software tool](http://www.perfdynamics.com/Tools/PDQcode.html), 
+written in C by the author, that comprises a 
 [library of functions](http://www.perfdynamics.com/Tools/PDQman.html)
 for solving queue-theoretic performance models. 
-An explicit example will be presented shortly. 
+An explicit example of how it is used will be presented shortly. 
 
 
 
@@ -266,6 +267,12 @@ combining measurement with models. In this case, capacity models like the PDQ mo
 >(Like I said at the beginning of this piece: simple!) <- need a parting remark here.
 >Also, explain A/S pseudo saturation. 
 
+It's left as an exercise for the reader to ponder who or what is acting on the Auto Scaler 
+policy statement. Let me narrow it down for you. 
+It's not the EC2 hardware. 
+It's not Linux.
+It's not Tomcat.
+It's not the Java application. 
 
   
 ## References
