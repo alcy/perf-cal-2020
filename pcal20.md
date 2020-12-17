@@ -1,27 +1,28 @@
 # Hit the road Jack, it ain't about performance no more
 
 
-Performance Calendar articles are mostly about improving web performance. 
-That's good because I don't know much about the web: it's very complicated, naming  
-all those bits and bytes. 
+Most Performance Calendar articles are about improving web performance. 
+That's good because I don't know much about the we&mdash;it's very complicated&mdash;naming  
+all those bits and bytes in the browser. 
 Instead, I'm going to talk about something much more transparent: cloud performance. 
 In that vein, my parody channeling of the Ray Charles hit title should be extended to read: 
-"it ain't about performance no more" *in The Cloud*.
+*it ain't about performance no more ... in the cloud*.
 
-Moreover, I'm going to discuss cloud performance using just two metrics, viz., 
-application throughput and application latency. 
-Everybody loves to talk about those two metrics so, that should keep things nice and simple.
+Moreover, I'm going to discuss cloud performance using just two performance metrics:  
+throughput and latency. 
+Everybody loves those two metrics so, that should keep things nice and simple.
 
 
 
 
 ## Tomcat on AWS
-The context here is a mobile application running on top of a Tomcat thread-server that also 
-communicates with other third-party web services, e.g., hotel and car-rental reservation systems. 
-A variable number of application instances are active during each 24 hour business cycle, depending 
-on the user traffic. The elastic capacity requirements are handled by Amazon Web Services (AWS). 
+The performance context here is a mobile-user application running on top of a Tomcat thread-server 
+that also communicates with third-party web services, such as hotel and rental-car reservation systems. 
+A variable number of cloud application instances are active during each 24 hour business cycle, 
+depending on the user traffic. 
+The elastic capacity requirements are handled automatically by Amazon Web Services (AWS). 
 
-The AWS cloud configuration can be summarized as:
+This particular AWS cloud configuration can be summarized as:
 
   * Elastic load balancer (ELB)
   * AWS Elastic Cluster (EC2) instance type `m4.10xlarge` with 20 CPUs or 40 VPUs 
