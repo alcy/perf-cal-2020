@@ -260,21 +260,23 @@ The cloud is the new mainframe (see Ref. 3).
 ![](fig4.png) 
 <figcaption><b>Figure 4: AWS infrastructure capacity lines</b><p></figcaption>
 
-In the cloud, one really needs thoroughly understand how Amazon 
+When it comes to the cloud, one really needs thoroughly understand how Amazon 
 charges for capacity. That involves understanding the cost differentials for 
-reserved instances, demand instances, spot instances and more recently, AWS lambda serverless microservices. 
+reserved instances, demand instances, spot instances and more recently, AWS lambda serverless microservices, 
+and how they relate to capacity consumption. 
 See the schematic representation AWS capacity lines in Figure 4. 
 The same observation applies to Google GCP and Microsoft Azure cloud services.
 
 As any MBA will attest, it's not really possible to do a proper cost-benefit analysis without 
-combining [measurements with models](https://perfdynamics.blogspot.com/2009/06/data-models-insight.html). In this case, capacity models like the PDQ model described here. 
+combining [measurements with models](https://perfdynamics.blogspot.com/2009/06/data-models-insight.html). 
+In this case, capacity models like the PDQ model described above. 
 
 Coming back to the "knee" in Figure 1 or the "ankle" in Figure 2, it should be noted that they are a consequence of the 
-A/S policy: if the EC2 instance CPU busy exceeds 75%, spin up additional VMs. 
+A/S policy: if the EC2 instance CPU busy exceeds 75%, spin up additional VMs and rebalance the incoming mobilerequest load. 
 There's no way Linux understands how to do such a thing. The Linux scheduler will simply shovel more threads onto CPU until it approaches 
-100% busy, i.e., until the CPU saturates. (I'm ignoring cgroups, which are not applicable here) 
-So, the discontinuous knee in X(N) is actually a pseudo-saturation effect due to the A/S policy being invoked. 
-The concomitant load at which the pseudo-saturation knee occurs, is N = 300 threads in Figure 1. 
+100% busy, i.e., until the CPU cores saturate. (I'm ignoring *cgroups*, which are not applicable here) 
+So, the discontinuous knee in X(N) is actually a *pseudo-saturation* effect due to the A/S policy being invoked. 
+The concomitant load at which the pseudo-saturation knee occurs, happens to be N = 300 threads in Figure 1. 
 
 It's left as an exercise for the reader to ponder who or what is acting on the A/S 
 policy statement. Let me narrow it down for you. 
@@ -284,7 +286,7 @@ It's not Tomcat.
 It's not the JVM. 
 And, it's not the Java application code. 
 To be quite honest, I'm not 100% certain myself although, I do have a pretty solid hypothesis. 
-If you can identify it, I would be interested to hear but, you should also bring supporting performance measurements.  
+If you can identify it, I would be interested to hear from you but, you should also bring supporting performance measurements.  
 
 Anyway, it's mysteries such as these that help to make the cloud simple. ;)
 
