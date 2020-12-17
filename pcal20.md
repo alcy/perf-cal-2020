@@ -56,10 +56,8 @@ of the following FOSS tools and scripts:
 
 More details about the data collection procedures can be found in References 1 and 2 below. 
 
-The last tool on that list,  
-PDQ (Pretty Damn Quick), is a [software tool](http://www.perfdynamics.com/Tools/PDQcode.html), 
-written in C by the author. It comprises a 
-[library of functions](http://www.perfdynamics.com/Tools/PDQman.html)
+The last tool on that list, PDQ (Pretty Damn Quick), is a [software tool](http://www.perfdynamics.com/Tools/PDQcode.html), 
+written in C by the author. It comprises a [library of functions](http://www.perfdynamics.com/Tools/PDQman.html)
 for solving queue-theoretic performance models. 
 An example of how it is used will be presented momentarily. 
 
