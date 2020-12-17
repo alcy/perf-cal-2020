@@ -263,12 +263,11 @@ standard performance tuning exploits.
 
 In the cloud, one really needs thoroughly understand how Amazon 
 charges for capacity. That involves understanding the cost differentials for 
-reserved instances, demand instances, spot instances and more recently, lambdas microservices. 
-(see Figure 4) 
-The same goes for Google or Microsoft cloud services.
+reserved instances, demand instances, spot instances and more recently, AWS lambda serverless microservices. (see Figure 4) 
+The same observation applies to Google GCP and Microsoft Azure cloud services.
 
-As any MBA will attest, it's not really possible to understand cost-benefit analysis without 
-combining measurement with models. In this case, capacity models like the PDQ model described here. 
+As any MBA will attest, it's not really possible to do a proper cost-benefit analysis without 
+combining [measurements with models](https://perfdynamics.blogspot.com/2009/06/data-models-insight.html). In this case, capacity models like the PDQ model described here. 
 
 
 >Also, explain A/S pseudo saturation. 
