@@ -108,15 +108,15 @@ The red lines represent the *statistical mean* of the measured data&mdash;in the
 of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
 (or "noise") about the mean. 
 
-Moreover, these red dashed line have a particular meaning in queueing theory&mdash;[you do know you're queuing theory don't you?](http://www.perfdynamics.com/Tools/PDQ.html) (elsewise, see Ref. 4) 
+Moreover, these red dashed line have a particular meaning in queueing theory&mdash;[you do know you're queuing theory don't you?](http://www.perfdynamics.com/Tools/PDQ.html) 
 The diagonal line represents the ideal **parallel** performance bound. In other words, you cannot 
 have a throughput better than that as you increase the request load; on average. 
 Similarly, the horizontal line represents the ideal **saturation** performance bound. 
 You cannot have a throughput that exceeds that bound; on average. 
-A more typical average throughput profile is represented by the blue dotted curve, i.e., 
-well below the bounds.  In that case, a lot more queueing is present. 
-As the AWS data shows, you can have *instantaneous* values that exceed these bounds but 
-they only transient. 
+A more typical average throughput profile is represented by the blue dotted curve in Figure 1. 
+In that case, a lot more queueing occurs and the curve is therefore well below the red-line bounds. 
+As the AWS performance data shows, there are *instantaneous* values that do exceed these bounds but,  
+they are only transient values. The red lines are the *statistical mean* of those transient values. 
 
 In case you're wondering, yes, Figure 1 only shows measurements from one EC2 instance 
 in the AWS cluster. 
