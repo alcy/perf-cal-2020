@@ -165,7 +165,7 @@ come from the queueing representation shown schematically in Figure 2.
 Reading from left to right, the little bubbles in curly braces represent N user-threads and 
 their associated think time, Z. For technical reasons, we set Z = 0 in this Tomcat model. 
 User requests flow rightward to a waiting line (the little boxes) labelled, W. 
-There, the requests wait to have their work performed by active Tomcat threads, shown in the 
+There, the requests wait to have their work performed by active Tomcat threads, shown as the bubbles in the 
 second set of curly braces. 
 The average service time of an active threads is S = 444 milliseconds (derived from the collected 
 data on the EC2 instance). 
@@ -220,7 +220,7 @@ plot(xx, yx, type="p", pch=0,
 )
 ```
 
-That's all it takes. A slight variation in the PDQ code can be used to calculate the 
+That's all it takes (see Ref. 5). A slight variation in the PDQ code can be used to calculate the 
 corresponding response times in Figure 3.
 
 The point of constructing the PDQ model is to  
@@ -253,8 +253,8 @@ is a consequence of the Auto Scaling policy that CPU busy not exceed 75% on any 
 So, what is it all about? It's about cost or, more formally, capacity planning. 
 It's about serious ROI. Applying standard performance tuning exploits generally only achieves minimal ROI. 
 On another level, this is nothing new. Decades ago, expensive monolithic mainframe computers literally charged your 
-department budget when you ran an application. Mainframe CPU cycles cost big bucks! 
-The cloud is the new monolithic mainframe (see Ref. 3). 
+department budget when you ran an application. Back then, mainframe CPU cycles cost big bucks! 
+The cloud is the new mainframe (see Ref. 3). 
 
   
 ![](fig4.png) 
