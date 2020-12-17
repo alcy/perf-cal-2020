@@ -2,14 +2,12 @@
 
 
 Most Performance Calendar articles are about improving web performance. 
-That's good because I don't know much about the we&mdash;it's very complicated&mdash;naming  
-all those bits and bytes in the browser. 
+That's good because I don't know much about the we&mdash;it's very complicated&mdash;naming all those bits and bytes in the browser. 
 Instead, I'm going to talk about something much more transparent: cloud performance. 
 In that vein, my parody channeling of the Ray Charles hit title should be extended to read: 
 *it ain't about performance no more ... in the cloud*.
 
-Moreover, I'm going to discuss cloud performance using just two performance metrics:  
-throughput and latency. 
+Moreover, I'm going to discuss cloud performance using just two performance metrics: throughput and latency. 
 Everybody loves those two metrics so, that should keep things nice and simple.
 
 
@@ -285,9 +283,9 @@ It's not the JVM.
 And, it's not the Java application code. 
 If you do identify it, you should also be able to explain how it works, operationally. 
 
-It's mysteries such as these, and other things behind the curtain, that help to make the cloud simple. 
+It's mysteries such as these and others, that help to make the cloud simple. 
 
-  
+
 ## References
   1. [Tomcat-Applikationsperformance in der Amazon-Cloud unter Linux modelliert](https://www.linux-magazin.de/ausgaben/2019/02/aws-performance/) (Linux Magazin 2019 in German)
   1. [Linux-Tomcat Application Performance on Amazon AWS](https://arxiv.org/abs/1811.12341) (2019 in English)
