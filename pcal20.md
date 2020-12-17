@@ -9,13 +9,13 @@ In that vein, my parody channeling of the Ray Charles hit title should be extend
 
 Moreover, I'm going to discuss cloud performance using just two metrics, viz., 
 application throughput and application latency. 
-Everybody loves to talk about those two metrics so, that should keep things simple.
+Everybody loves to talk about those two metrics so, that should keep things nice and simple.
 
 
 
 
 ## Tomcat on AWS
-The context is a mobile application running on top of a Tomcat thread-server that also 
+The context here is a mobile application running on top of a Tomcat thread-server that also 
 communicates with other third-party web services, e.g., hotel and car-rental reservation systems. 
 A variable number of application instances are active during each 24 hour business cycle, depending 
 on the user traffic. The elastic capacity requirements are handled by Amazon Web Services (AWS). 
@@ -30,15 +30,16 @@ The AWS cloud configuration can be summarized as:
   * A/S controls the number of active EC2 instances based on incoming ELB traffic and configured A/S policies
   * ELB balances incoming traffic across all active EC2 nodes in the AWS cluster
 
-All the subsequent performance data discussed here are taken from this is a production environment. 
+All the subsequent performance data discussed here are taken from this application 
+running in a *production* environment, rather than a load-testing environment. 
 
 
 
 
 ## Performance Profiles
 
-Performance data was collected from the above **production** system using a combination
- of the following FOSS tools:
+Performance data was collected from the AWS production system and analyzed using a combination 
+of the following FOSS tools and scripts:
 
   * JMX (Java Management Extensions) data from JVM
   * jmxterm
@@ -54,11 +55,12 @@ Performance data was collected from the above **production** system using a comb
 
 More details about the data collection procedures can be found in References 1 and 2 below. 
 
-PDQ (Pretty Damn Quick) is a [software tool](http://www.perfdynamics.com/Tools/PDQcode.html), 
+The last tool on that list,  
+PDQ (Pretty Damn Quick), is a [software tool](http://www.perfdynamics.com/Tools/PDQcode.html), 
 written in C by the author, that comprises a 
 [library of functions](http://www.perfdynamics.com/Tools/PDQman.html)
 for solving queue-theoretic performance models. 
-An explicit example of how it is used will be presented shortly. 
+An example of how it is used will be presented momentarily. 
 
 
 
@@ -68,24 +70,29 @@ First, let's consider the application throughput profile shown in Figure 1.
 The most important thing to note about this plot of throughput is that it is **not** a time 
 series&mdash;that every performance monitoring tool spits out. 
 
-As general matter, time are rather useless for doing deeper performance analysis. 
-Just because a monitoring tool produces time-series plots, doesn't make them particularly useful. 
-It's just an obvious and straightforward thing for them to do. 
-Instead, Figure 1 shows the steady-state view of the throughput, X(N), as a nonlinear function of 
-the mobile user request load, N. In other words, N is the independent variable and X(N) is the 
-dependent variable. All steady-state throughput profiles are *concave* functions. 
-Since each user-request is assigned to a Tomcat thread, we can label N as "users" or 
+As a general matter, time series plots are rather useless for doing deeper performance analysis. 
+Just because a monitoring tool produces time-series interface, doesn't automatically make them 
+particularly useful. 
+It's just an obvious and straightforward thing for them to do: render the metrics in time. 
+
+Instead, Figure 1 shows the steady-state view of the throughput, denoted X(N), as a nonlinear 
+function of the load, N. due to mobile user requests.  
+In other words, N is the *independent* variable and X(N) is the 
+*dependent* variable. All steady-state throughput profiles are *concave* functions. 
+Since each user-request is assigned to a Tomcat thread, we can optionally label N as "users" or 
 "requests" or "threads". They're all logically equivalent. 
 
 ![Figure 1](fig1.png)  
 <figcaption><b>Figure 1: Throughput profile of Tomcat application on AWS</b><p></figcaption>
 
 
-Figure 1 is quite busy. 
+Figure 1 is quite busy. Let's step through it. 
 The dots are the measured throughput, X, at the corresponding number of measured threads, N. 
-Each dot corresponds to a particular 
+In other words, each dot is an X-N pair. 
+A dot also corresponds to a particular 
 timestamp when the data was sampled but, that information has becomes *implicit* rather than 
-explicit in Figure 1. 
+explicit in Figure 1. I can find the time when any dot was sampled, if I should need to. 
+
 The data points range approximately between N = 100 user-threads and N = 500 threads. 
 On reflection, it should be clear that the lower values of N 
 correspond to the quiescent period during the 24 hour window and conversely, 
