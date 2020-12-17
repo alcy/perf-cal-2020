@@ -3,12 +3,15 @@
 
 Performance Calendar articles are mostly about improving web performance. 
 That's good because I don't know much about the web: it's very complicated. 
-So, I'm going to talk about something much more transparent: cloud performance. 
-In that sense, my title should read: *It Ain't About Performance No More...* **in The Cloud**.
+Instead, I'm going to talk about something much more transparent: cloud performance. 
+In that vein, my parody channeling of the Ray Charles hit title should be extended to read: 
+"it ain't about performance no more" *in The Cloud*.
 
-Moreover, I'm going to discuss cloud performance using just two figures, viz., 
-application throughput and application latency in the cloud. 
-Everybody loves to talk about those two metrics so, that should make things easy.
+Moreover, I'm going to discuss cloud performance using just two metrics, viz., 
+application throughput and application latency. 
+Everybody loves to talk about those two metrics so, that should keep things simple.
+
+
 
 
 ## Tomcat on AWS
@@ -263,16 +266,18 @@ As any MBA will attest, it's not really possible to understand cost-benefit anal
 combining measurement with models. In this case, capacity models like the PDQ model described here. 
 
 
-
->(Like I said at the beginning of this piece: simple!) <- need a parting remark here.
 >Also, explain A/S pseudo saturation. 
 
-It's left as an exercise for the reader to ponder who or what is acting on the Auto Scaler 
+It's left as an exercise for the reader to ponder who or what is acting on the A/S 
 policy statement. Let me narrow it down for you. 
 It's not the EC2 hardware. 
 It's not Linux.
 It's not Tomcat.
-It's not the Java application. 
+It's not the JVM. 
+And, it's not the Java application code. 
+If you do identify it, you should also be able to explain how it works, operationally. 
+
+It's mysteries such as these, and other things behind the curtain, that help to make the cloud simple. 
 
   
 ## References
