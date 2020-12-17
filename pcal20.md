@@ -129,7 +129,34 @@ fault of the load balancer configuration of some other effect in the infrastruct
 
 
 
-### PDQ Model
+### Latency profile
+
+Next, let's look at the corresponding response time profile. Roughly speaking, it is the 
+inverse function of the throughput: a convex function. 
+
+![](fig3.png) 
+<figcaption><b>Figure 3: Latency profile of Tomcat application  on AWS</b><p></figcaption>
+
+Figure 3 shows the steady-state view of the response time, R(N), as a nonlinear function of 
+the mobile user request load, N. Here, R(N) is the 
+dependent variable. All steady-state response time profiles are *convex* functions. 
+
+In the parallel throughput region of Figure 1, all the threads are executing independently 
+of one another and therefore the the latency remains constant, on average. 
+To performance analysts, that horizontal bound is referred to as the "foot" of the "hockey stick" 
+profile. In terms of queueing, there isn't any. 
+
+Conversely, the horizontal saturation limit in Figure 1, means the system can't do any more 
+work than it was doing at N = 300 threads. Any additional threads do not contribute to the 
+throughput. On the other hand, the additional requesting threads do get to wait in queues. 
+Those growing queues are reflected in the increasing diagonal line of Figure 3&mdash;the 
+so-called hockey stick "handle". 
+
+
+
+
+
+## PDQ Model
 
 The white squares in Figure 1 (i.e., the calculated throughput X(N)) 
 come from the queueing representation shown schematically in Figure 2. 
@@ -218,31 +245,6 @@ Since I wasn't involved in any way,
 I don't know if that was an anomaly due to bad measurements or bad configuration or some other 
 latent effects. 
 
-
-
-
-### Latency profile
-
-Next, let's look at the corresponding response time profile. Roughly speaking, it is the 
-inverse function of the throughput: a convex function. 
-
-![](fig3.png) 
-<figcaption><b>Figure 3: Latency profile of Tomcat application  on AWS</b><p></figcaption>
-
-Figure 3 shows the steady-state view of the response time, R(N), as a nonlinear function of 
-the mobile user request load, N. Here, R(N) is the 
-dependent variable. All steady-state response time profiles are *convex* functions. 
-
-In the parallel throughput region of Figure 1, all the threads are executing independently 
-of one another and therefore the the latency remains constant, on average. 
-To performance analysts, that horizontal bound is referred to as the "foot" of the "hockey stick" 
-profile. In terms of queueing, there isn't any. 
-
-Conversely, the horizontal saturation limit in Figure 1, means the system can't do any more 
-work than it was doing at N = 300 threads. Any additional threads do not contribute to the 
-throughput. On the other hand, the additional requesting threads do get to wait in queues. 
-Those growing queues are reflected in the increasing diagonal line of Figure 3&mdash;the 
-so-called hockey stick "handle". 
 
 
 
