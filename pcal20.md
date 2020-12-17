@@ -134,8 +134,8 @@ fault of the load balancer configuration of some other effect in the infrastruct
 Next, let's look at the corresponding response time profile. Roughly speaking, it is the 
 inverse function of the throughput: a convex function. 
 
-![](fig3.png) 
-<figcaption><b>Figure 3: Latency profile of Tomcat application  on AWS</b><p></figcaption>
+![](fig2.png) 
+<figcaption><b>Figure 2: Latency profile of Tomcat application  on AWS</b><p></figcaption>
 
 Figure 3 shows the steady-state view of the response time, R(N), as a nonlinear function of 
 the mobile user request load, N. Here, R(N) is the 
@@ -161,8 +161,8 @@ so-called hockey stick "handle".
 The white squares in Figure 1 (i.e., the calculated throughput X(N)) 
 come from the queueing representation shown schematically in Figure 2. 
 
-![](fig2.png) 
-<figcaption><b>Figure 2: Queueing representation of AWS-Tomcat</b><p></figcaption>
+![](fig3.png) 
+<figcaption><b>Figure 3: Queueing representation of AWS-Tomcat</b><p></figcaption>
 
 
 Reading from left to right, the little bubbles in curly braces represent N user-threads and 
