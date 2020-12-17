@@ -284,9 +284,10 @@ It's not Linux.
 It's not Tomcat.
 It's not the JVM. 
 And, it's not the Java application code. 
-If you do identify it, you should also be able to explain how it works, operationally. 
+To be quite honest, I'm not 100% certain myself although, I do have a pretty solid hypothesis. 
+If you can identify it, I would be interested to hear but, you should also bring supporting performance measurements.  
 
-It's mysteries such as these and others, that help to make the cloud simple. 
+Anyway, it's mysteries such as these that help to make the cloud simple. ;)
 
 
 ## References
