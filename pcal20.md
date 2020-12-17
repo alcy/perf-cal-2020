@@ -233,7 +233,7 @@ The point of constructing the PDQ model is to
 
 The hint from Figure 1 is that the measured X(N) and R(N) validate very well with PDQ but, there is not much room for performance improvement. 
 The initial throughput increases linearly with load and runs along the parallel bound. You can't beat that. 
-It might be possible to lift the saturation bound in some way but, it turns out there usn't. I'll return to that point, shorty. 
+It might be possible to lift the saturation bound in some way but, it turns out there isn't. I'll return to that point, shorty. 
 The only other improvement might be to reduce the variability in the data. 
 
 I should note in passing that I've seen throughput data for a completely different Tomcat application that was not 
@@ -259,18 +259,23 @@ standard performance tuning exploits.
 
   
 ![](fig4.png) 
-<figcaption><b>Figure 4: AWS capacity lines</b><p></figcaption>
+<figcaption><b>Figure 4: AWS infrastructure capacity lines</b><p></figcaption>
 
 In the cloud, one really needs thoroughly understand how Amazon 
 charges for capacity. That involves understanding the cost differentials for 
-reserved instances, demand instances, spot instances and more recently, AWS lambda serverless microservices. (see Figure 4) 
+reserved instances, demand instances, spot instances and more recently, AWS lambda serverless microservices. 
+See the schematic representation AWS capacity lines in Figure 4. 
 The same observation applies to Google GCP and Microsoft Azure cloud services.
 
 As any MBA will attest, it's not really possible to do a proper cost-benefit analysis without 
 combining [measurements with models](https://perfdynamics.blogspot.com/2009/06/data-models-insight.html). In this case, capacity models like the PDQ model described here. 
 
-
->Also, explain A/S pseudo saturation. 
+Coming back to the "knee" in Figure 1 or the "ankle" in Figure 2, it should be noted that they are a consequence of the 
+A/S policy: if the EC2 instance CPU busy exceeds 75%, spin up additional VMs. 
+There's no way Linux understands how to do such a thing. The Linux scheduler will simply shovel more threads onto CPU until it approaches 
+100% busy, i.e., until the CPU saturates. (I'm ignoring cgroups, which are not applicable here) 
+So, the discontinuous knee in X(N) is actually a pseudo-saturation effect due to the A/S policy being invoked. 
+The concomitant load at which the pseudo-saturation knee occurs, is N = 300 threads in Figure 1. 
 
 It's left as an exercise for the reader to ponder who or what is acting on the A/S 
 policy statement. Let me narrow it down for you. 
