@@ -132,25 +132,25 @@ fault of the load balancer configuration of some other aspect of the cloud infra
 Next, let's look at the corresponding response time profile. 
 Response time here refers to the elapsed wall-clock time from the issuance of a mobile-user request 
 to receiving the completed response from the Tomcat application (including all business-logic processing). Roughly speaking, it is the 
-inverse function of the throughput: a convex function. 
+inverse function of the throughput: a *convex* function. 
 
 ![](fig2.png) 
 <figcaption><b>Figure 2: Latency (*hockey stick*) profile of Tomcat application  on AWS</b><p></figcaption>
 
 Figure 3 shows the steady-state view of the response time, R(N), as a nonlinear function of 
 the mobile user request load, N. Here, R(N) is the 
-dependent variable. All steady-state response time profiles are *convex* functions. 
+dependent variable. All steady-state response time profiles are convex functions. 
 
 In the parallel throughput region of Figure 1, all the threads are executing independently 
-of one another and therefore the the latency remains constant, on average. 
-To performance analysts, that horizontal bound is referred to as the "foot" of the "hockey stick" 
-profile. In terms of queueing, there isn't any. 
+of one another and therefore the latency remains constant, on average, as load is increased. 
+Performance analysts refer to Figure 2 as the  "hockey stick" profile. 
+The *foot* of the hockey stick is flat because from a queueing point of view, there isn't any queueing. 
 
 Conversely, the horizontal saturation limit in Figure 1, means the system can't do any more 
 work than it was doing at N = 300 threads. Any additional threads do not contribute to the 
-throughput. On the other hand, the additional requesting threads do get to wait in queues. 
-Those growing queues are reflected in the increasing diagonal line of Figure 3&mdash;the 
-so-called hockey stick "handle". 
+throughput. On the other hand, the additional requests do get to wait in queues. 
+That those queues grow is reflected in the diagonal line of Figure 2&mdash;the 
+hockey stick *handle*. Note further that that "handle" is LINEAR, not exponential. 
 
 
 
