@@ -2,7 +2,7 @@
 
 
 Most [Performance Calendar](https://calendar.perfplanet.com/2020/) posts are about improving web performance. 
-That's a good thing because I don't know much about the web&mdash;it's very complicated&mdash;naming all those bits and bytes in the browser. 
+That's a good thing because I don't know much about the web&mdash;it's very complicated, naming all those bits and bytes in the browser. 
 Instead, I'm going to talk about something much more transparent: **CLOUD** performance. 
 In that vein, my parody channeling of the [Ray Charles hit](https://www.youtube.com/watch?v=0rEsVp5tiDQ) title should be extended to read: 
 *it ain't about performance no more ... in the cloud*.
@@ -132,7 +132,7 @@ Next, let's look at the corresponding response time profile. Roughly speaking, i
 inverse function of the throughput: a convex function. 
 
 ![](fig2.png) 
-<figcaption><b>Figure 2: Latency profile of Tomcat application  on AWS</b><p></figcaption>
+<figcaption><b>Figure 2: Latency (*hockey stick*) profile of Tomcat application  on AWS</b><p></figcaption>
 
 Figure 3 shows the steady-state view of the response time, R(N), as a nonlinear function of 
 the mobile user request load, N. Here, R(N) is the 
@@ -251,8 +251,10 @@ result than me. This Tomcat application is scaling maximally. The throttling at 
 is a consequence of the Auto Scaling policy that CPU busy not exceed 75% on any EC2 instance. 
 
 So, what is it all about? It's about cost or, more formally, capacity planning. 
-It's all about ROI, where there's only minimal ROI to be had by applying 
-standard performance tuning exploits.
+It's about serious ROI. Applying standard performance tuning exploits generally only achieves minimal ROI. 
+On another level, this is nothing new. Decades ago, expensive monolithic mainframe computers literally charged your 
+department budget when you ran an application. Mainframe CPU cycles cost big bucks! 
+The cloud is the new monolithic mainframe (see Ref. 3). 
 
   
 ![](fig4.png) 
