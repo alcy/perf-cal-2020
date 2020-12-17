@@ -2,7 +2,8 @@
 
 
 Performance Calendar articles are mostly about improving web performance. 
-That's good because I don't know much about the web: it's very complicated. 
+That's good because I don't know much about the web: it's very complicated, naming  
+all those bits and bytes. 
 Instead, I'm going to talk about something much more transparent: cloud performance. 
 In that vein, my parody channeling of the Ray Charles hit title should be extended to read: 
 "it ain't about performance no more" *in The Cloud*.
@@ -86,8 +87,8 @@ Since each user-request is assigned to a Tomcat thread, we can optionally label 
 
 
 Figure 1 is quite busy. Let's step through it. 
-The dots are the measured throughput, X, at the corresponding number of measured threads, N. 
-In other words, each dot is an X-N pair. 
+The dots are the measured throughput, X, at the corresponding number of measured threads, N, i.e., 
+each dot is an X-N pair. 
 A dot also corresponds to a particular 
 timestamp when the data was sampled but, that information has becomes *implicit* rather than 
 explicit in Figure 1. I can find the time when any dot was sampled, if I should need to. 
@@ -99,10 +100,10 @@ the higher values of N correspond to the heaviest daily traffic.
 
 What is not apparent from a simple scatterplot of those data is that they tend to fall along 
 two line segments:
-  1. the diagonal red dashed line (up to N = 300)
-  1. the horizontal red dashed line (beyond N = 300)
+  1. the diagonal red line (up to N = 300)
+  1. the horizontal red line (for N > 300)
 
-The knee in the data is indicated by the blue arrow. 
+That knee in the data is indicated by the vertical arrow. 
 
 The red lines represent the *statistical mean* of the measured data&mdash;in the sense 
 of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
@@ -139,7 +140,7 @@ their associated think time, Z. For technical reasons, we set Z = 0 in this Tomc
 User requests flow rightward to a waiting line (the little boxes) labelled, W. 
 There, the requests wait to have their work performed by active Tomcat threads, shown in the 
 second set of curly braces. 
-The average service time of an active threads is 444 milliseconds (derived from the collected 
+The average service time of an active threads is S = 444 milliseconds (derived from the collected 
 data on the EC2 instance). 
 It turns out that there can only be up to 300 active threads in the AWS set up. 
 More on this, later. 
@@ -158,7 +159,7 @@ requests <- seq(50, 500, 50) # from mobile users
 threads  <- 300   # max threads under AWS auto scale policy
 stime    <- 0.444 # measured service time in seconds
 ztime    <- 0.0   # measured think time in seconds
-xx       <- NULL  # x-axis load points 
+xx       <- NULL  # x-axis load points for plot
 yx       <- NULL  # corresponding throughput 
 ```
 
@@ -169,18 +170,18 @@ library(pdq)
 
 aws.model <- function(nindex) {
   pdq::Init("")  
-  pdq::CreateClosed("Requests", BATCH, requests[nindex], ztime)
-  pdq::CreateMultiNode(threads, "Threads", MSC, FCFS) 
-  pdq::SetDemand("Threads", "Requests", stime) 
+  pdq::CreateClosed("Requests", BATCH, requests[nindex], ztime) # LHS bubbles in Fig. 2
+  pdq::CreateMultiNode(threads, "Threads", MSC, FCFS)           # RHS bubbles in Fig. 2
+  pdq::SetDemand("Threads", "Requests", stime)                  # Tomcat service demand
   pdq::SetWUnit("Reqs")
   pdq::Solve(EXACT)
-  xx[nindex] <<- requests[nindex] # update global vector
-  yx[nindex] <<- pdq::GetThruput(BATCH, "Requests")
-}
+  xx[nindex] <<- requests[nindex]                               # update global vector
+  yx[nindex] <<- pdq::GetThruput(BATCH, "Requests")             # y-axis plot values
+} 
 ```
 
-The throughput is then calculated for each load value, N, of interest. 
-This part of the PDQ model can simply be written as a loop. 
+The throughput is then calculated for each load point, N, of interest. 
+This part of the PDQ model can simply be written as a loop over the `aws.model` function. 
 
 ```R
 for (i in 1:length(requests)) {
