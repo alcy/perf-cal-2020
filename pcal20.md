@@ -226,24 +226,21 @@ plot(xx, yx, type="p", pch=0,
 That's all it takes. A slight variation in the PDQ code can be used to calculate the 
 corresponding response times in Figure 3.
 
-The point of constructing the PDQ model is to see 
+The point of constructing the PDQ model is to  
 
-  * how the data compares with the model 
-  * if there are opportunities for performance improvement 
+  1. validate the performance data by comparing it with a model of expected values
+  1. see if there are opportunities for performance improvement 
 
-The hint from Figure 1 is that there does not seem to be much. 
-The initial throughput increases linearly with load and runs along the parallel bound. 
-You can't beat that. 
-It might be possible to lift the saturation bound in some way but, I'll come back to that shorty. 
+The hint from Figure 1 is that the measured X(N) and R(N) validate very well with PDQ but, there is not much room for performance improvement. 
+The initial throughput increases linearly with load and runs along the parallel bound. You can't beat that. 
+It might be possible to lift the saturation bound in some way but, it turns out there usn't. I'll return to that point, shorty. 
 The only other improvement might be to reduce the variability in the data. 
 
-I note in passing that I've 
-seen throughput data for a completely different Tomcat application that was not 
+I should note in passing that I've seen throughput data for a completely different Tomcat application that was not 
 running in any cloud and it did not appear to scale as well is Figure 1. 
-Perhaps it was closer to the dotted curve. 
-Since I wasn't involved in any way, 
-I don't know if that was an anomaly due to bad measurements or bad configuration or some other 
-latent effects. 
+Its profile was closer to the dotted curve. 
+Since I wasn't involved with that system in any way, 
+I don't know if the difference was due to bad measurements or bad configuration or something else. 
 
 
 
