@@ -1,10 +1,10 @@
 # Hit the road Jack, it ain't about performance no more
 
 
-Most Performance Calendar articles are about improving web performance. 
-That's good because I don't know much about the we&mdash;it's very complicated&mdash;naming all those bits and bytes in the browser. 
-Instead, I'm going to talk about something much more transparent: cloud performance. 
-In that vein, my parody channeling of the Ray Charles hit title should be extended to read: 
+Most [Performance Calendar](https://calendar.perfplanet.com/2020/) posts are about improving web performance. 
+That's a good thing because I don't know much about the web&mdash;it's very complicated&mdash;naming all those bits and bytes in the browser. 
+Instead, I'm going to talk about something much more transparent: **CLOUD** performance. 
+In that vein, my parody channeling of the [Ray Charles hit](https://www.youtube.com/watch?v=0rEsVp5tiDQ) title should be extended to read: 
 *it ain't about performance no more ... in the cloud*.
 
 Moreover, I'm going to discuss cloud performance using just two performance metrics: throughput and latency. 
