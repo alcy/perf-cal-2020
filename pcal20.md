@@ -14,13 +14,14 @@ Everybody loves those two metrics so, that should keep things nice and simple.
 
 
 ## Tomcat on AWS
-The performance context here is a mobile-user application running on top of a Tomcat thread-server 
-that also communicates with third-party web services, such as hotel and rental-car reservation systems. 
-A variable number of cloud application instances are active during each 24 hour business cycle, 
-depending on the user traffic. 
-The elastic capacity requirements are handled automatically by Amazon Web Services (AWS). 
 
-This particular AWS cloud configuration can be summarized as:
+The cloud environment presented here is Amazon Web Services (AWS). 
+A mobile-user application runs on top of a Tomcat thread-server that also communicates with third-party web services, 
+such as hotel and rental-car reservation systems. 
+The number of AWS cluster instances varies throughout each 24 hour business cycle, depending on the incoming mobile-user traffic. 
+The elastic capacity requirements are handled automatically by the AWS cloud services. 
+
+This particular AWS cloud configuration and operation can be summarized as:
 
   * Elastic load balancer (ELB)
   * AWS Elastic Cluster (EC2) instance type `m4.10xlarge` with 20 CPUs or 40 VPUs 
@@ -39,7 +40,7 @@ running in a *production* environment, rather than a load-testing environment.
 ## Performance Profiles
 
 Performance data was collected from the AWS production system and analyzed using a combination 
-of the following FOSS tools and scripts:
+of the following FOSS tools:
 
   * **JMX** (Java Management Extensions) data from JVM
   * **jmxterm**
@@ -49,7 +50,7 @@ of the following FOSS tools and scripts:
   * **Collectd** — Linux performance data collection
   * **Graphite** and **statsd** — application metrics collection and storage 
   * **Grafana** — time-series data plotting
-  * Custom data collection scripts
+  * **Custom scripts** for particular metric combinations
   * **R** [statistical libraries](https://www.r-project.org) with 
   [RStudio IDE](https://rstudio.com/products/rstudio/download/)
   * **PDQ** queueing analyzer tool 
@@ -66,17 +67,15 @@ An example of how it is used will be presented momentarily.
 ### Throughput profile
 
 First, let's consider the application throughput profile shown in Figure 1. 
-The most important thing to note about this plot of throughput is that it is **not** a time 
-series&mdash;that every performance monitoring tool spits out. 
-
+The most important thing to note about this plot of throughput is that it is **not** a *time series*&mdash;like every 
+performance monitoring tool spits out. 
 As a general matter, time series plots are rather useless for doing deeper performance analysis. 
-Just because a monitoring tool produces time-series interface, doesn't automatically make them 
-particularly useful. 
-It's just an obvious and straightforward thing for them to do: render the metrics in time. 
+Just because a monitoring tool produces time-series plots, doesn't automatically make them 
+particularly useful. It's just a straightforward thing for them to do: render metrics in time. 
 
-Instead, Figure 1 shows the steady-state view of the throughput, denoted X(N), as a nonlinear 
-function of the load, N. due to mobile user requests. In other words, N is the *independent* variable and X(N) is the 
-*dependent* variable. All steady-state throughput profiles are *concave* functions. 
+Instead, Figure 1 shows the *steady-state* view of the throughput, denoted by X(N), as a nonlinear 
+function of the load, N, due to mobile-user requests. In other words, N is the *independent* variable and X(N) is the 
+*dependent* variable. Most importantly. all steady-state throughput profiles are *concave* functions. 
 Since each user-request is assigned to a Tomcat thread, we can optionally label N as "users" or 
 "requests" or "threads". They're all logically equivalent. 
 
@@ -84,24 +83,25 @@ Since each user-request is assigned to a Tomcat thread, we can optionally label 
 <figcaption><b>Figure 1: Throughput profile of Tomcat application on AWS</b><p></figcaption>
 
 
-Figure 1 is quite busy. Let's step through it. 
+Figure 1 is quite busy so, let's step through it. 
 The dots are the measured throughput, X, at the corresponding number of measured threads, N, i.e., 
 each dot is an X-N pair. 
 A dot also corresponds to a particular 
-timestamp when the data was sampled but, that information has becomes *implicit* rather than 
-explicit in Figure 1. I can find the time when any dot was sampled, if I should need to. 
+timestamp when the data was sampled but, that information is *implicit* in Figure 1. 
+Rest assured that I can find the time when any dot was sampled, if I need to. 
 
 The data points range approximately between N = 100 and N = 500 threads. 
-On reflection, it should be clear that the lower values of N 
+On reflection, it should be clear that the smaller values of N 
 correspond to the quiescent period during the 24 hour window and conversely, 
-the higher values of N correspond to the heaviest daily traffic. 
+the larger values of N correspond to the heaviest daily traffic. 
 
-What is not apparent in a simple scatterplot of those data is that they tend to fall along two lines:
+What would not be apparent, if we just showed a simple scatterplot of the AWS-Tomcat data, 
+is that all the data points tend to fall around two lines:
   1. the diagonal red line (up to N < 300)
   1. the horizontal red line (for N >= 300)
 
-That knee in the data at N = 300 is indicated by the vertical arrow. 
-
+This is made clear in Figure 1. 
+The *knee* in the data at N = 300 is indicated by the vertical arrow. 
 The red lines represent the *statistical mean* of the measured data&mdash;in the sense 
 of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
 (or "noise") about the mean. 
