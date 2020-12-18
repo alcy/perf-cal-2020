@@ -58,7 +58,7 @@ of the following FOSS tools:
 More details about the data collection procedures can be found in References 1 and 2 below. 
 
 The last tool on that list, PDQ (Pretty Damn Quick), is a [software tool](http://www.perfdynamics.com/Tools/PDQcode.html), 
-written in C by the author. It comprises a [library of functions](http://www.perfdynamics.com/Tools/PDQman.html)
+written in C (also available in other languages - Perl and R) by the author. It comprises a [library of functions](http://www.perfdynamics.com/Tools/PDQman.html)
 for solving queue-theoretic performance models. 
 An example of how it is used will be presented momentarily. 
 
@@ -75,7 +75,7 @@ particularly useful. It's just a straightforward thing for them to do: render me
 
 Instead, Figure 1 shows the *steady-state* view of the throughput, denoted by X(N), as a nonlinear 
 function of the load, N, due to mobile-user requests. In other words, N is the *independent* variable and X(N) is the 
-*dependent* variable. Most importantly. all steady-state throughput profiles are *concave* functions. 
+*dependent* variable. Most importantly, all steady-state throughput profiles are *concave* functions. 
 Since each user-request is assigned to a Tomcat thread, we can optionally label N as "users" or 
 "requests" or "threads". They're all logically equivalent. 
 
@@ -106,7 +106,7 @@ The red lines represent the *statistical mean* of the measured data&mdash;in the
 of linear regression analysis.  The variation in the data corresponds to statistical fluctuations
 (or "noise") about the mean. 
 
-Moreover, these red lines have a particular meaning in queueing theory&mdash;[you do know you're queuing theory don't you?](http://www.perfdynamics.com/Tools/PDQ.html) 
+Moreover, these red lines have a particular meaning in queueing theory&mdash;[you do know your queuing theory don't you?](http://www.perfdynamics.com/Tools/PDQ.html) 
 The diagonal line represents the ideal **parallel** performance bound. In other words, you cannot 
 have a throughput better than that as you increase the request load; *on average*. 
 Similarly, the horizontal line represents the **saturation** performance bound. 
@@ -120,9 +120,9 @@ And, in case you're wondering, yes, Figure 1 only shows measurements on a single
 in the AWS cluster. 
 From the standpoint of PDQ (discussed in the next section), that's the correct approach. 
 All the instances are supposed to scale identically. 
-That's the job of the ECB load balancer and that's the assumption PDQ also uses. 
+That's the job of the ELB load balancer and that's the assumption PDQ also uses. 
 If instances are not scaling identically, that's not the fault of queueing theory. That's the 
-fault of the load balancer configuration of some other aspect of the cloud infrastructure.  
+fault of the load balancer configuration or some other aspect of the cloud infrastructure.  
 
 
 
@@ -251,7 +251,7 @@ I don't know if the difference was due to bad measurements, bad configuration, o
 Now you can see the meaning of my title. It's not about performance in most cases because 
 scaling is taken care of automagically by the AWS cloud. Nobody was more surprised by this 
 result than me. This Tomcat application is scaling maximally. The throttling at N = 300 threads 
-is a consequence of the Auto Scaling policy whereby CPU utilization was not exceed 75% on any EC2 instance. 
+is a consequence of the Auto Scaling policy whereby CPU utilization was not exceeding 75% on any EC2 instance. 
 
 So, if it's not about performance, what is it all about? It's about cost or, more formally, capacity planning. 
 It's about hard-core ROI. Applying standard performance tuning exploits will generally not gain much ROI. 
